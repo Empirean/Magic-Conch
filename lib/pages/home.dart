@@ -9,7 +9,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
 
-  double _speechRate = .3;
   bool _isAnimating = false;
   Random _rng = Random();
 
@@ -32,21 +31,28 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   ];
 
   List<String> _imagePaths = [
-    "assets/bg1.jpg",
-    "assets/bg2.jpg",
+    "assets/bg1.png",
+    "assets/bg2.png",
     "assets/bg3.png",
-    "assets/bg4.jpg",
-    "assets/bg5.png",
-    "assets/bg6.jfif",
-    "assets/bg7.jfif",
-    "assets/bg8.jpg",
+    "assets/bg4.png",
+    "assets/bg5.jpg",
+    "assets/bg6.png",
+    "assets/bg7.png",
+    "assets/bg8.png",
     "assets/bg9.png",
     "assets/bg10.png",
     "assets/bg11.png",
-    "assets/bg12.jpg",
-    "assets/bg13.jpg",
-    "assets/bg14.jpg",
-    "assets/bg15.png",
+  ];
+
+  List<double> _speechSpeed = [
+    .7,
+    .3,
+    .5,
+    .8,
+    .3,
+    .3,
+    .8,
+    .3,
   ];
 
   List<String> _responses = [
@@ -126,6 +132,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
         body: SafeArea(
             child: Container(
               decoration:BoxDecoration(
@@ -149,7 +156,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
                         _response = _responses[res];
                         _voice = _voices[res];
                       });
-                      await _flutterTts.setSpeechRate(_speechRate);
+                      await _flutterTts.setSpeechRate(_speechSpeed[res]);
                       await _flutterTts.awaitSpeakCompletion(true);
                       await _flutterTts.speak(_voice);
                       _isTalking = false;
@@ -160,7 +167,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
                     animation: _controller,
                     builder: (BuildContext context, _) {
                       return CircleAvatar(
-                        backgroundColor: _textColors[_circleColorIndex],
+                        backgroundColor: Colors.white,
                         minRadius: 85 + _sizeAnimation.value,
                         maxRadius: 155 +_sizeAnimation.value,
                         child: CircleAvatar(
